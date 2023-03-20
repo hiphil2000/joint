@@ -1,4 +1,4 @@
-/*! JointJS v3.5.5 (2022-04-08) - JavaScript diagramming library
+/*! JointJS v3.5.5 (2023-03-20) - JavaScript diagramming library
 
 
 This Source Code Form is subject to the terms of the Mozilla Public
@@ -28067,7 +28067,9 @@ var joint = (function (exports, Backbone, _, $) {
 	        }
 
 	        if (!normalizedEvt.isPropagationStopped()) {
-	            this.pointerclick($.Event(evt, { type: 'click', data: evt.data }));
+	            // Fixed: jQuery 1.x version is not cloning event's target.
+	            // this.pointerclick($.Event(evt, { type: 'click', data: evt.data }));
+	            this.pointerclick($.Event(evt, { type: 'click', data: evt.data, target: evt.target }));
 	        }
 
 	        evt.stopImmediatePropagation();

@@ -2093,7 +2093,9 @@ export const Paper = View.extend({
         }
 
         if (!normalizedEvt.isPropagationStopped()) {
-            this.pointerclick($.Event(evt, { type: 'click', data: evt.data }));
+            // Fixed: jQuery 1.x version is not cloning event's target.
+            // this.pointerclick($.Event(evt, { type: 'click', data: evt.data }));
+            this.pointerclick($.Event(evt, { type: 'click', data: evt.data, target: evt.target }));
         }
 
         evt.stopImmediatePropagation();
